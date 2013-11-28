@@ -26,18 +26,23 @@ def add_references(generator):
         for category, slugs in article.metadata.items():
             if category in categories:
                 slugs = slugs.replace(' ', '').split(',')
-                article.metadata[category] = slugs
+
+                referenced_articles = []
 
                 for slug in slugs:
                     # Check for valid slug.
                     if slug not in articles:
                       continue
 
+                    referenced_articles.append(articles[slug])
+
                     # Default to an empty list.
                     if not hasattr(articles[slug], 'referenced_by'):
                         articles[slug].referenced_by = []
 
                     articles[slug].referenced_by.append(article)
+
+                setattr(article, category, referenced_articles)
 
 def register():
     signals.article_generator_finalized.connect(add_references)
