@@ -34,10 +34,10 @@ def add_references(generator):
                       continue
 
                     # Default to an empty list.
-                    if 'referenced_by' not in articles[slug].metadata:
-                        articles[slug].metadata['referenced_by'] = []
+                    if not hasattr(article, 'referenced_by'):
+                        articles[slug].referenced_by = []
 
-                    articles[slug].metadata['referenced_by'].append(article)
+                    articles[slug].referenced_by.append(article)
 
 def register():
     signals.article_generator_finalized.connect(add_references)
