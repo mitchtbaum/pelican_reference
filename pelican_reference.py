@@ -34,7 +34,7 @@ def add_references(generator):
                       continue
 
                     # Default to an empty list.
-                    if not hasattr(article, 'referenced_by'):
+                    if not hasattr(articles[slug], 'referenced_by'):
                         articles[slug].referenced_by = []
 
                     articles[slug].referenced_by.append(article)
