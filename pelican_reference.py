@@ -29,6 +29,10 @@ def add_references(generator):
                 article.metadata[category] = slugs
 
                 for slug in slugs:
+                    # Check for valid slug.
+                    if slug not in articles:
+                      continue
+
                     # Default to an empty list.
                     if 'referenced_by' not in articles[slug].metadata:
                         articles[slug].metadata['referenced_by'] = []
